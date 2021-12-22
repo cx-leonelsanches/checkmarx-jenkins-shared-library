@@ -48,9 +48,13 @@ def call() {
     conn.useCaches = false
     conn.requestMethod = 'POST'
 
-    try (DataOutputStream wr = new DataOutputStream(conn.outputStream)) {
+    // Does not work for some reason
+    /* try (DataOutputStream wr = new DataOutputStream(conn.outputStream)) {
         wr.write(postData)
-    }
+    } */
+    DataOutputStream wr = new DataOutputStream(conn.outputStream)
+    wr.write(postData)
+    wr.close()
 
     if (conn.responseCode == 200) {
         JsonSlurper jsonSlurper = new JsonSlurper()
