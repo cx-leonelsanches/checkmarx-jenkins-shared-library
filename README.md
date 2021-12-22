@@ -2,6 +2,14 @@
 
 This is a collection of methods that we can use in a Jenkins Pipeline.
 
+## Prerequisites
+
+This collection of libraries requires three environment variables. You can set either in your pipeline script or in your Jenkins configuration (Manage Jenkins > Configure System > Global properties > check "Environment variables" option):
+
+- `CX_SERVER_URL`: Your CxSAST instane URL. For instance, https://mycompany.checkmarx.net
+- `CX_USERNAME`: A login that can read at least projects and teams information;
+- `CX_PASSWORD`: The corresponding password for the login provided. 
+
 ## Sample pipeline for Jenkins
 
 ```Groovy
