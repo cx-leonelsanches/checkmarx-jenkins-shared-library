@@ -14,7 +14,7 @@ import groovy.json.JsonSlurper
 */
 class RestClient {
 
-    def get(String endpoint, string bearerToken) {
+    def get(String endpoint, String bearerToken) {
         URL url = new URL(endpoint)
         URLConnection conn = url.openConnection()
 
