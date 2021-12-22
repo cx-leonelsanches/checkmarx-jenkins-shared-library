@@ -4,7 +4,7 @@ This is a collection of methods that we can use in a Jenkins Pipeline.
 
 ## Sample pipeline for Jenkins
 
-```Jenkinsfile
+```Groovy
 @Library('checkmarx-jenkins-shared-library')_
 
 pipeline {
@@ -29,6 +29,10 @@ pipeline {
                     // To get teams
                     def teams = getTeams(authData.access_token)
                     echo teams.toString()
+
+                    // To get one team
+                    def firstTeam = getOneTeams(authData.access_token, teams[0].id)
+                    echo firstTeam.toString()
                 }
             }
         }

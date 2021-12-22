@@ -9,7 +9,7 @@
 
 import groovy.json.JsonSlurper
 
-def getOneProject(String bearerToken, int projectId) {
+def call(String bearerToken, int projectId) {
     URL url = new URL("${env.CX_SERVER_URL}/cxrestapi/projects/${projectId}")
     URLConnection conn = url.openConnection()
 

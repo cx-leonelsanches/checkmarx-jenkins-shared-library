@@ -9,7 +9,7 @@
 
 import groovy.json.JsonSlurper
 
-def getTeams(String bearerToken) {
+def call(String bearerToken) {
     URL url = new URL("${env.CX_SERVER_URL}/cxrestapi/auth/teams")
     URLConnection conn = url.openConnection()
 
