@@ -7,20 +7,6 @@
 /* groovylint-disable MethodReturnTypeRequired */
 /* groovylint-disable DuplicateNumberLiteral */
 
-/*
-function: GetProjectTeam(projectName) {
-    if there is an environment variable projectTeam defined:
-        use the environment variable
-    else if the project already exists in checkmarx:
-        fetch the team from checkmarx and re-use it
-        # how multiple projects /w same team name will be handled
-    else if a default can be used:
-        use a default value of CxServer
-    else
-        look up the team from somewhere.. somehow
-}
-*/
-
 import java.nio.charset.StandardCharsets
 import groovy.json.JsonSlurper
 
@@ -48,10 +34,6 @@ def call() {
     conn.useCaches = false
     conn.requestMethod = 'POST'
 
-    // Does not work for some reason
-    /* try (DataOutputStream wr = new DataOutputStream(conn.outputStream)) {
-        wr.write(postData)
-    } */
     DataOutputStream wr = new DataOutputStream(conn.outputStream)
     wr.write(postData)
     wr.close()
