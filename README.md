@@ -1,4 +1,4 @@
-# Checkmarx Jenkins Library
+# Checkmarx Jenkins Shared Library
 
 This is a collection of methods that we can use in a Jenkins Pipeline.
 
