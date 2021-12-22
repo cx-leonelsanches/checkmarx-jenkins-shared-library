@@ -8,21 +8,9 @@
 /* groovylint-disable DuplicateNumberLiteral */
 
 import groovy.json.JsonSlurper
+import com.checkmarx.jenkinssharedlibrary.RestClient
 
 def call(String bearerToken, int projectId) {
-    URL url = new URL("${env.CX_SERVER_URL}/cxrestapi/projects/${projectId}")
-    URLConnection conn = url.openConnection()
-
-    String basicAuth = "Bearer ${bearerToken}"
-    conn.setRequestProperty('Authorization', basicAuth)
-
-    def getOneProjectResponseCode = conn.responseCode
-
-    if (getOneProjectResponseCode == 200) {
-        JsonSlurper jsonSlurper = new JsonSlurper()
-        def getOneProjectJsonObject = jsonSlurper.parseText(conn.inputStream.text)
-        return getOneProjectJsonObject
-    }
-
-    return [:]
+    RestClient restClient = new RestClient()
+    return restClient.get("${env.CX_SERVER_URL}/cxrestapi/projects/${projectId}", bearerToken)
 }
