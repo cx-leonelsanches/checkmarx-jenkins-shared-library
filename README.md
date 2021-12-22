@@ -39,7 +39,7 @@ pipeline {
                     echo teams.toString()
 
                     // To get one team
-                    def firstTeam = getOneTeams(authData.access_token, teams[0].id)
+                    def firstTeam = getOneTeam(authData.access_token, teams[0].id)
                     echo firstTeam.toString()
                 }
             }
@@ -47,3 +47,9 @@ pipeline {
     }
 }
 ```
+
+## Contributing
+
+Each command requires a new `.groovy` file under `vars` folder. Each file requires a `call` method. 
+
+If necessary, you can create additional classes at `src` folder.
