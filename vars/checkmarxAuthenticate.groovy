@@ -11,9 +11,9 @@ import java.nio.charset.StandardCharsets
 import groovy.json.JsonSlurperClassic
 
 def call() {
-    assert env.hasProperty('CX_SERVER_URL') && env.CX_SERVER_URL : 'Variable CX_SERVER_URL not set'
-    assert env.hasProperty('CX_USERNAME') && env.CX_USERNAME : 'Variable CX_USERNAME not set'
-    assert env.hasProperty('CX_PASSWORD') && env.CX_PASSWORD : 'Variable CX_PASSWORD not set'
+    assert env.CX_SERVER_URL : 'Variable CX_SERVER_URL not set'
+    assert env.CX_USERNAME : 'Variable CX_USERNAME not set'
+    assert env.CX_PASSWORD : 'Variable CX_PASSWORD not set'
 
     URL url = new URL("${env.CX_SERVER_URL}/cxrestapi/auth/identity/connect/token")
     String urlParameters = "username=${env.CX_USERNAME}&" +
