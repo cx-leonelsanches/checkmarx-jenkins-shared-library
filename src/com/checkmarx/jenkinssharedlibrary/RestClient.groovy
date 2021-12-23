@@ -7,7 +7,7 @@ package com.checkmarx.jenkinssharedlibrary
 /* groovylint-disable MethodReturnTypeRequired */
 /* groovylint-disable DuplicateNumberLiteral */
 
-import groovy.json.JsonSlurper
+import groovy.json.JsonSlurperClassic
 
 /**
  * Common class used for REST access to a CxSAST instance.
@@ -22,7 +22,7 @@ class RestClient {
         conn.setRequestProperty('Authorization', basicAuth)
 
         if (conn.responseCode == 200) {
-            JsonSlurper jsonSlurper = new JsonSlurper()
+            JsonSlurperClassic jsonSlurper = new JsonSlurperClassic()
             return jsonSlurper.parseText(conn.inputStream.text)
         }
 
