@@ -8,7 +8,7 @@
 /* groovylint-disable DuplicateNumberLiteral */
 
 import java.nio.charset.StandardCharsets
-import groovy.json.JsonSlurper
+import groovy.json.JsonSlurperClassic
 
 def call() {
     URL url = new URL("${env.CX_SERVER_URL}/cxrestapi/auth/identity/connect/token")
@@ -39,7 +39,7 @@ def call() {
     wr.close()
 
     if (conn.responseCode == 200) {
-        JsonSlurper jsonSlurper = new JsonSlurper()
+        JsonSlurperClassic jsonSlurper = new JsonSlurperClassic()
         def jsonObject = jsonSlurper.parseText(conn.inputStream.text)
 
         return jsonObject
