@@ -5,7 +5,7 @@
 
 import com.checkmarx.jenkinssharedlibrary.JenkinsCredentialsParser
 
-def call() {
+def call(String hashedSecret) {
     JenkinsCredentialsParser jenkinsCredentialsParser = new JenkinsCredentialsParser()
-    return jenkinsCredentialsParser.secret
+    return jenkinsCredentialsParser.getSecret(hashedSecret)
 }
