@@ -10,14 +10,10 @@
 import java.nio.charset.StandardCharsets
 import groovy.json.JsonSlurperClassic
 
-def call() {
-    assert env.CX_SERVER_URL : 'Variable CX_SERVER_URL not set'
-    assert env.CX_USERNAME : 'Variable CX_USERNAME not set'
-    assert env.CX_PASSWORD : 'Variable CX_PASSWORD not set'
-
-    URL url = new URL("${env.CX_SERVER_URL}/cxrestapi/auth/identity/connect/token")
-    String urlParameters = "username=${env.CX_USERNAME}&" +
-        "password=${env.CX_PASSWORD}&" +
+def call(String serverUrl = env.CX_SERVER_URL, String userName = env.CX_USERNAME, String password = env.CX_PASSWORD) {
+    URL url = new URL("${serverUrl}/cxrestapi/auth/identity/connect/token")
+    String urlParameters = "username=${userName}&" +
+        "password=${password}&" +
         'grant_type=password&' +
         'scope=sast_rest_api&' +
         'client_id=resource_owner_client&' +
