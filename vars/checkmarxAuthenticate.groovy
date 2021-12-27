@@ -10,7 +10,9 @@
 import java.nio.charset.StandardCharsets
 import groovy.json.JsonSlurperClassic
 
-def call(String serverUrl = env.CX_SERVER_URL, String userName = env.CX_USERNAME, String password = env.CX_PASSWORD) {
+def call(String serverUrl = env.CX_SERVER_URL, String userName = env.CX_CREDENTIALS_USR,
+        String password = env.CX_CREDENTIALS_PSW) {
+
     URL url = new URL("${serverUrl}/cxrestapi/auth/identity/connect/token")
     String urlParameters = "username=${userName}&" +
         "password=${password}&" +
