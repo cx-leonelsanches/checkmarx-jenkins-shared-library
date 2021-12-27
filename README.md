@@ -101,7 +101,7 @@ pipeline {
     agent any
     
     stages {
-        stage('Hello') {
+        stage('GetProjectTeam') {
             steps {
                 script {
                     // To authenticate

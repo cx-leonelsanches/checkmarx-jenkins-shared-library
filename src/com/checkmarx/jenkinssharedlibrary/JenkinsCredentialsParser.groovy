@@ -15,7 +15,8 @@ import hudson.util.Secret
 class JenkinsCredentialsParser {
 
     def getSecret(String hashedSecret) {
-        return Secret.fromString(hashedSecret).encryptedValue
+        // return Secret.fromString(hashedSecret).encryptedValue
+        return Secret.fromString(hashedSecret).plainText
     }
 
 }
