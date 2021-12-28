@@ -2,6 +2,10 @@
 
 This is a collection of methods that we can use in a Jenkins Pipeline.
 
+## Why a separate Shared Library? What about the Checkmarx Jenkins Plugin?
+
+This library doesn't replace the Checkmarx Jenkins Plugin. It works more like a RESTful client in Jenkins for additional operations that the plugin does not support. For instance, changing the team to execute a scan. 
+
 ## Initial Setup
 
 This can be configured if you have admin access to Jenkins. If you don't, please check "If you don't have admin rights in Jenkins" section at the end of this document.

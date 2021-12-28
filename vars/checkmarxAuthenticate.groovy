@@ -13,6 +13,10 @@ import groovy.json.JsonSlurperClassic
 def call(String serverUrl = env.CX_SERVER_URL, String userName = env.CX_CREDENTIALS_USR,
         String password = env.CX_CREDENTIALS_PSW) {
 
+    assert serverUrl : 'Variable serverUrl not set'
+    assert userName : 'Variable userName not set'
+    assert password : 'Variable password not set'
+
     URL url = new URL("${serverUrl}/cxrestapi/auth/identity/connect/token")
     String urlParameters = "username=${userName}&" +
         "password=${password}&" +
