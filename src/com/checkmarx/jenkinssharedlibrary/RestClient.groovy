@@ -43,7 +43,8 @@ class RestClient {
         conn.doOutput = true
 
         DataOutputStream wr = new DataOutputStream(conn.outputStream)
-        wr.write(jsonPayloadAsString)
+        byte[] jsonByteArray = jsonPayloadAsString.getBytes('utf-8')
+        wr.write(jsonByteArray, 0, jsonByteArray.length)
         wr.close()
 
         if (conn.responseCode == 200) {
