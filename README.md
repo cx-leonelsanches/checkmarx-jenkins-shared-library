@@ -4,7 +4,7 @@ This is a collection of methods that we can use in a Jenkins Pipeline.
 
 ## Why a separate Shared Library? What about the Checkmarx Jenkins Plugin?
 
-This library doesn't replace the Checkmarx Jenkins Plugin. It works more like a RESTful client in Jenkins for additional operations that the plugin does not support. For instance, changing the team to execute a scan. 
+This library doesn't replace the Checkmarx Jenkins Plugin. It works more like a RESTful client in Jenkins for additional operations that the plugin does not support. For instance, changing the team to execute a scan, or creating new teams before calling the scan step. 
 
 ## Initial Setup
 
@@ -22,13 +22,16 @@ In Jenkins, go to Manage Jenkins → Configure System. Under Global Pipeline Lib
 
 In order to work properly, the first method of the collection that should be called is `checkmarxAuthenticate`, that returns a JWT token, used by all the other methods.
 
-`checkmarxAuthenticate` works with up to three parameters. All of them are optional in the method call: 
+`checkmarxAuthenticate` works with up to four parameters. All of them are optional in the method call: 
 
 - `serverUrl`: Your CxSAST instance URL. For instance, https://mycompany.checkmarx.net
 - `userName`: A login that can read at least projects and teams information
 - `password`: The corresponding password for the login provided
+- `scopes`: The authorization scopes for the user. The default is `"sast_rest_api access_control_api"`
+    - `"sast_rest_api"` gives general permissions in SAST, like reading projects and teams
+    - `"access_control_api"` gives permissions to create teams.
 
-If not provided, `checkmarxAuthenticate` will try to search for them in `env`, respectively: 
+If none of them are provided, `checkmarxAuthenticate` will try to search for the first three them in `env`, respectively: 
 
 - `env.CX_SERVER_URL`
 - `env.CX_CREDENTIALS_USR`
@@ -67,6 +70,9 @@ withCredentials([usernamePassword(credentialsId: 'checkmarx-credentials-id', pas
     // To get one team
     firstTeam = getOneTeam(authData.access_token, teams[0].id)
     echo firstTeam.toString()
+
+    // To create a new team
+    newTeam = createNewTeam authData.access_token, 'MyNewTeam', 1
 }
 ```
 
@@ -84,7 +90,7 @@ pipeline {
     }
     
     stages {
-        stage('GetProjectTeam') {
+        stage('MyStage') {
             steps {
                 script {
                     // To authenticate
@@ -106,6 +112,9 @@ pipeline {
                     // To get one team
                     def firstTeam = getOneTeam(authData.access_token, teams[0].id)
                     echo firstTeam.toString()
+
+                    // To create a new team
+                    def newTeam = createNewTeam authData.access_token, 'MyNewTeam', 1
                 }
             }
         }
@@ -153,6 +162,9 @@ pipeline {
                     // To get one team
                     def firstTeam = getOneTeam(authData.access_token, teams[0].id)
                     echo firstTeam.toString()
+
+                    // To create a new team
+                    def newTeam = createNewTeam authData.access_token, 'MyNewTeam', 1
                 }
             }
         }

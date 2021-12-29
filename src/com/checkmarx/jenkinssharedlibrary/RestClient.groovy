@@ -27,6 +27,9 @@ class RestClient {
             return jsonSlurper.parseText(conn.inputStream.text)
         }
 
+        println conn.responseCode
+        println conn.content
+
         return [:]
     }
 
@@ -47,13 +50,13 @@ class RestClient {
         wr.write(jsonByteArray, 0, jsonByteArray.length)
         wr.close()
 
-        println conn.responseCode
-        println conn.content
-
         if (conn.responseCode == 200) {
             JsonSlurperClassic jsonSlurper = new JsonSlurperClassic()
             return jsonSlurper.parseText(conn.inputStream.text)
         }
+
+        println conn.responseCode
+        println conn.content
 
         return [:]
     }
