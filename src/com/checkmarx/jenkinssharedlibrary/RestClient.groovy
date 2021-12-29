@@ -6,6 +6,7 @@ package com.checkmarx.jenkinssharedlibrary
 /* groovylint-disable UnnecessaryObjectReferences */
 /* groovylint-disable MethodReturnTypeRequired */
 /* groovylint-disable DuplicateNumberLiteral */
+/* groovylint-disable DuplicateStringLiteral */
 
 import groovy.json.JsonSlurperClassic
 
@@ -20,6 +21,30 @@ class RestClient {
 
         String basicAuth = "Bearer ${bearerToken}"
         conn.setRequestProperty('Authorization', basicAuth)
+
+        if (conn.responseCode == 200) {
+            JsonSlurperClassic jsonSlurper = new JsonSlurperClassic()
+            return jsonSlurper.parseText(conn.inputStream.text)
+        }
+
+        return [:]
+    }
+
+    def post(String endpoint, String bearerToken, String jsonPayloadAsString) {
+        URL url = new URL(endpoint)
+        HttpURLConnection conn = (HttpURLConnection) url.openConnection()
+
+        String basicAuth = "Bearer ${bearerToken}"
+
+        conn.setRequestProperty('Authorization', basicAuth)
+        conn.setRequestProperty('Content-Type', 'application/json; utf-8')
+
+        conn.requestMethod = 'POST'
+        conn.doOutput = true
+
+        DataOutputStream wr = new DataOutputStream(conn.outputStream)
+        wr.write(jsonPayloadAsString)
+        wr.close()
 
         if (conn.responseCode == 200) {
             JsonSlurperClassic jsonSlurper = new JsonSlurperClassic()
