@@ -11,7 +11,7 @@ import java.nio.charset.StandardCharsets
 import groovy.json.JsonSlurperClassic
 
 def call(String serverUrl = env.CX_SERVER_URL, String userName = env.CX_CREDENTIALS_USR,
-        String password = env.CX_CREDENTIALS_PSW) {
+        String password = env.CX_CREDENTIALS_PSW, String scopes = 'sast_rest_api access_control_api') {
 
     assert serverUrl : 'Variable serverUrl not set'
     assert userName : 'Variable userName not set'
@@ -21,7 +21,7 @@ def call(String serverUrl = env.CX_SERVER_URL, String userName = env.CX_CREDENTI
     String urlParameters = "username=${userName}&" +
         "password=${password}&" +
         'grant_type=password&' +
-        'scope=sast_rest_api&' +
+        "scope=${scopes}&" +
         'client_id=resource_owner_client&' +
         'client_secret=014DF517-39D1-4453-B7B3-9930C563627C'
 
