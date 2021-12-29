@@ -9,7 +9,7 @@ import com.checkmarx.jenkinssharedlibrary.dtos.CreateTeamDto
 
 import groovy.json.*
 
-def call(String name, Integer parentId) {
+def call(String bearerToken, String name, Integer parentId) {
     assert env.CX_SERVER_URL : 'Variable CX_SERVER_URL not set'
     assert name?.trim() : 'Invalid team name'
     assert parentId > 0 : 'Invalid parent team id'
